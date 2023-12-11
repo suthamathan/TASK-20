@@ -1,0 +1,136 @@
+TASK 20
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.concurrent.TimeUnit;
+
+public class DatePickerAutomation {
+
+    public static void main(String[] args) {
+        // Set the path to the chromedriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create a Chrome browser instance
+        WebDriver driver = new ChromeDriver();
+
+        // Maximize the browser window
+        driver.manage().window().maximize();
+
+        // Navigate to the datepicker URL
+        driver.get("https://jqueryui.com/datepicker/");
+
+        // Switch to the iframe that contains the datepicker
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe.demo-frame")));
+
+        // Wait for the datepicker to load
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Click on the next month button in the datepicker
+        WebElement nextMonthButton = driver.findElement(By.cssSelector("a.ui-datepicker-next"));
+        nextMonthButton.click();
+
+        // Click on the date "22" in the datepicker
+        WebElement date22 = driver.findElement(By.xpath("//td[@data-month='1']/a[text()='22']"));
+        date22.click();
+
+        // Print the selected date on the console as output
+        System.out.println("Selected Date: " + date22.getText());
+
+        // Close the browser window and quit the WebDriver instance
+        driver.quit();
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+public class GuviSignInSignUpAutomation {
+
+    public static void main(String[] args) {
+        // Set the path to the chromedriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create a Chrome browser instance
+        WebDriver driver = new ChromeDriver();
+
+        // Maximize the browser window
+        driver.manage().window().maximize();
+
+        // Navigate to the Guvi website
+        driver.get("https://www.guvi.in/");
+
+        // Locate the Signup button and click on it
+        WebElement signupButton = driver.findElement(By.xpath("//a[text()='Signup']"));
+        signupButton.click();
+
+        // Wait for the signup page to load
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Fill in the signup form with required details
+        WebElement nameField = driver.findElement(By.id("name"));
+        nameField.sendKeys("Dummy User");
+
+        WebElement emailField = driver.findElement(By.id("email"));
+        emailField.sendKeys("dummyuser@example.com");
+
+        WebElement passwordField = driver.findElement(By.id("password"));
+        passwordField.sendKeys("dummyPassword");
+
+        // Click on the "Signup" button to submit the form
+        WebElement signupSubmitButton = driver.findElement(By.xpath("//button[text()='Signup']"));
+        signupSubmitButton.click();
+
+        // Wait for the registration process to complete
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+        // Verify that the user is registered successfully
+        String pageTitleAfterSignup = driver.getTitle();
+        if (pageTitleAfterSignup.equals("Guvi - Learn to Code")) {
+            System.out.println("User registered successfully.");
+        } else {
+            System.out.println("Registration process failed.");
+            driver.quit();
+            return;
+        }
+
+        // Locate the Login button and click on it
+        WebElement loginButton = driver.findElement(By.xpath("//a[text()='Login']"));
+        loginButton.click();
+
+        // Wait for the login page to load
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Fill in the login form with the email and password used during registration
+        WebElement loginEmailField = driver.findElement(By.id("login-email"));
+        loginEmailField.sendKeys("dummyuser@example.com");
+
+        WebElement loginPasswordField = driver.findElement(By.id("login-password"));
+        loginPasswordField.sendKeys("dummyPassword");
+
+        // Click on the "Login" button to submit the form
+        WebElement loginSubmitButton = driver.findElement(By.xpath("//button[text()='Login']"));
+        loginSubmitButton.click();
+
+        // Wait for the login process to complete
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+        // Verify that the user is logged in successfully
+        String pageTitleAfterLogin = driver.getTitle();
+        if (pageTitleAfterLogin.equals("Guvi - Learn to Code")) {
+            System.out.println("User logged in successfully.");
+        } else {
+            System.out.println("Login process failed.");
+        }
+
+        // Close the browser
+        driver.quit();
+    }
+}
